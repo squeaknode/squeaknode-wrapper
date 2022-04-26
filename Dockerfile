@@ -1,16 +1,46 @@
-FROM arm64v8/alpine:3.12
+FROM python:3.8-slim-buster AS compile-image
 
-RUN apk update
-RUN apk add tini curl
+WORKDIR /
 
-ADD ./hello-world/target/aarch64-unknown-linux-musl/release/hello-world /usr/local/bin/hello-world
-ADD ./docker_entrypoint.sh /usr/local/bin/docker_entrypoint.sh
-RUN chmod a+x /usr/local/bin/docker_entrypoint.sh
-ADD ./check-web.sh /usr/local/bin/check-web.sh
-RUN chmod +x /usr/local/bin/check-web.sh
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+	apt-get install -y \
+	libpq-dev \
+	gcc \
+	libffi-dev \
+	build-essential
 
-WORKDIR /root
+RUN python -m venv /opt/venv
+# Make sure we use the virtualenv:
+ENV PATH="/opt/venv/bin:$PATH"
 
-EXPOSE 80
+RUN pip install --upgrade pip
 
-ENTRYPOINT ["/usr/local/bin/docker_entrypoint.sh"]
+WORKDIR /app
+
+# Copy the source code.
+COPY squeaknode/ .
+
+RUN pip install .[postgres]
+
+FROM python:3.8-slim-buster
+
+COPY --from=compile-image /opt/venv /opt/venv
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+	apt-get install -y libpq-dev
+
+EXPOSE 8555
+EXPOSE 18555
+EXPOSE 18666
+EXPOSE 18777
+# Web server
+EXPOSE 12994
+
+# Make sure we use the virtualenv:
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Copy the entrypoint script.
+COPY "entrypoint.sh" .
+RUN chmod +x entrypoint.sh
+
+CMD ["./entrypoint.sh"]
