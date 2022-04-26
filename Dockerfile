@@ -29,11 +29,10 @@ COPY --from=compile-image /opt/venv /opt/venv
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
 	apt-get install -y libpq-dev
 
+# Peer port
 EXPOSE 8555
 EXPOSE 18555
-EXPOSE 18666
-EXPOSE 18777
-# Web server
+# Browser Admin port
 EXPOSE 12994
 
 # Make sure we use the virtualenv:
