@@ -3,6 +3,8 @@
 # exit from script if error was raised.
 set -e
 
+echo 'Starting Squeaknode...'
+
 export SQUEAKNODE_BITCOIN_RPC_HOST=bitcoind.embassy
 export SQUEAKNODE_BITCOIN_RPC_PORT=8332
 export SQUEAKNODE_BITCOIN_RPC_USER=$(yq e '.bitcoind.user' /root/.lightning/start9/config.yaml)
@@ -20,6 +22,7 @@ export SQUEAKNODE_NODE_NETWORK=
 export SQUEAKNODE_NODE_SQK_DIR_PATH=
 export SQUEAKNODE_NODE_MAX_SQUEAKS=
 export SQUEAKNODE_SERVER_EXTERNAL_ADDRESS=
+
 
 # Start using the run server command
 if [ -f config.ini ]; then

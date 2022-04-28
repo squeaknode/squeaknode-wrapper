@@ -1,4 +1,6 @@
-FROM arm64v8/python:3.8-slim-buster AS compile-image
+ARG PYTHON_VERSION=3.8
+
+FROM docker.io/python:${PYTHON_VERSION}-slim AS compile-image
 
 WORKDIR /
 
@@ -22,7 +24,7 @@ COPY squeaknode/ .
 
 RUN pip install .[postgres]
 
-FROM arm64v8/python:3.8-slim-buster
+FROM docker.io/python:${PYTHON_VERSION}-slim
 
 COPY --from=compile-image /opt/venv /opt/venv
 
