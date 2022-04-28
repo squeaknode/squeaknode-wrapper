@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster AS compile-image
+FROM arm64v8/python:3.8-slim-buster AS compile-image
 
 WORKDIR /
 
@@ -22,7 +22,7 @@ COPY squeaknode/ .
 
 RUN pip install .[postgres]
 
-FROM python:3.8-slim-buster
+FROM arm64v8/python:3.8-slim-buster
 
 COPY --from=compile-image /opt/venv /opt/venv
 
