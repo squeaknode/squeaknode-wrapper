@@ -1,0 +1,3 @@
+[submodule "squeaknode"]
+	path = squeaknode
+	url = https://github.com/squeaknode/squeaknode.git
