@@ -1,0 +1,31 @@
+- rule: '''users.*.name = "squeaknode"'
+  description: 'Must have an RPC user named "squeaknode"'
+  suggestions:
+    - PUSH:
+        to: "users"
+        value:
+          name: squeaknode
+          allowed-calls: []
+    - SET:
+        var: 'users.[first(item => ''item.name = "squeaknode")].password'
+        to-entropy:
+          charset: "a-z,A-Z,0-9"
+          len: 22
+- rule: '''users.[first(item => ''item.name = "squeaknode")].allowed-calls.* = "getblockcount"'
+  description: 'RPC user "squeaknode" must have "getblockcount" enabled'
+  suggestions:
+    - PUSH:
+        to: 'users.[first(item => ''item.name = "squeaknode")].allowed-calls'
+        value: "getblockcount"
+- rule: '''users.[first(item => ''item.name = "squeaknode")].allowed-calls.* = "getblockhash"'
+  description: 'RPC user "squeaknode" must have "getblockhash" enabled'
+  suggestions:
+    - PUSH:
+        to: 'users.[first(item => ''item.name = "squeaknode")].allowed-calls'
+        value: "getblockhash"
+- rule: '''users.[first(item => ''item.name = "squeaknode")].allowed-calls.* = "getblockheader"'
+  description: 'RPC user "squeaknode" must have "getblockheader" enabled'
+  suggestions:
+    - PUSH:
+        to: 'users.[first(item => ''item.name = "squeaknode")].allowed-calls'
+        value: "getblock"
