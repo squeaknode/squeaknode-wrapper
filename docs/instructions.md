@@ -1,6 +1,7 @@
 # Instructions for Squeaknode
 
-You can login using the username `squeaknode-admin`
+You can login using the username `squeaknode-admin`.
+
 Your admin password can be found on the properties page.
 
 # Detailed instructions and suggested steps from Squeaknode support
