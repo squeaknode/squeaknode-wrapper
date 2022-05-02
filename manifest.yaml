@@ -1,7 +1,7 @@
 id: squeaknode
 title: Squeaknode
 version: 0.2.22
-release-notes: Initial release of a Squeaknode for EmbassyOS v0.3.0.2
+release-notes: Initial release of Squeaknode for EmbassyOS v0.3.0.2
 license: mit
 wrapper-repo: "https://github.com/squeaknode/squeaknode-wrapper"
 upstream-repo: "https://github.com/squeaknode/squeaknode"
