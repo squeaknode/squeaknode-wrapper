@@ -194,7 +194,7 @@ dependencies:
           compat: /mnt/assets
         io-format: yaml
   lnd:
-    version: ">=0.11.1 <0.14.0"
+    version: ">=0.11.1 <0.15.0"
     description: Used to communicate with the Lightning Network.
     requirement:
       type: required
