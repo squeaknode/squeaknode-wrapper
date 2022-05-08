@@ -42,8 +42,7 @@ export SQUEAKNODE_BITCOIN_RPC_HOST=$bitcoind_host
 export SQUEAKNODE_BITCOIN_RPC_PORT=8332
 export SQUEAKNODE_BITCOIN_RPC_USER=$bitcoind_user
 export SQUEAKNODE_BITCOIN_RPC_PASS=$bitcoind_pass
-export SQUEAKNODE_LIGHTNING_BACKEND=$lightning_type
-export SQUEAKNODE_LIGHTNING_BACKEND=$lightning_type
+export SQUEAKNODE_LIGHTNING_BACKEND=$lightning_backend
 export SQUEAKNODE_LIGHTNING_LND_RPC_HOST=$LND_ADDRESS
 export SQUEAKNODE_LIGHTNING_LND_RPC_PORT=10009
 export SQUEAKNODE_LIGHTNING_LND_TLS_CERT_PATH="/mnt/lnd/tls.cert"
@@ -59,10 +58,6 @@ export SQUEAKNODE_NODE_SQK_DIR_PATH='/root/sqk'
 export SQUEAKNODE_NODE_MAX_SQUEAKS=10000
 export SQUEAKNODE_SERVER_EXTERNAL_ADDRESS=$PEER_TOR_ADDRESS
 
-
-# Creating duplicate directory for the lnd macaroon files
-mkdir -p /mnt/lnd/data/chain/bitcoin/mainnet
-cp /mnt/lnd/*.macaroon /mnt/lnd/data/chain/bitcoin/mainnet
 
 # Properties Page showing password to be used for login
   echo 'version: 2' >> /root/start9/stats.yaml

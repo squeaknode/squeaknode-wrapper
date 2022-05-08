@@ -98,6 +98,5 @@ lightning:
   description: Use this setting to grant Squeaknode access to your Embassy's LND or c-lightning node.
   default: lnd
   variants:
-    none: {}
     lnd: {}
     c-lightning: {}
