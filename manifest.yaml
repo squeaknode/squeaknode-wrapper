@@ -1,6 +1,6 @@
 id: squeaknode
 title: Squeaknode
-version: 0.2.23
+version: 0.3.0
 release-notes: Initial release of Squeaknode for EmbassyOS v0.3.0.2
 license: mit
 wrapper-repo: "https://github.com/squeaknode/squeaknode-wrapper"
@@ -25,6 +25,7 @@ main:
     main: /root
     compat: /mnt/assets
     lnd: /mnt/lnd
+    c-lightning: "/mnt/c-lightning"
   io-format: yaml
 health-checks:
   main:
@@ -86,8 +87,14 @@ volumes:
     type: pointer
     package-id: lnd
     volume-id: main
-    path: /public
-    readonly: false
+    path: "/public"
+    readonly: true
+  c-lightning:
+    type: pointer
+    package-id: c-lightning
+    volume-id: main
+    path: "/shared"
+    readonly: true
 interfaces:
   main:
     name: Browser Interface
@@ -194,10 +201,18 @@ dependencies:
           compat: /mnt/assets
         io-format: yaml
   lnd:
-    version: ">=0.11.1 <0.15.0"
-    description: Used to communicate with the Lightning Network.
+    version: ">=0.13.3.1 <0.15.0"
     requirement:
-      type: required
+      type: "opt-in"
+      how: Optionally use LND for internal lightning network node implementation.
+    description: Used to communicate with the Lightning Network.
+    config: ~
+  c-lightning:
+    version: ">=0.10.0.1 <0.11.0"
+    requirement:
+      type: "opt-in"
+      how: Optionally use c-lightning for internal lightning network node implementation.
+    description: Used to communicate with the Lightning Network.
     config: ~
 backup:
   create:
