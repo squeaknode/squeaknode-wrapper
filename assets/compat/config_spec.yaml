@@ -85,3 +85,19 @@ bitcoind:
         target: config
         multi: false
         selector: '$.users.[?(@.name == "squeaknode")].password'
+lightning:
+  type: union
+  tag:
+    id: type
+    name: Type
+    description: Enables Squeaknode to use the selected internal lightning node.
+    variant-names:
+      c-lightning: C-Lightning
+      lnd: LND
+  name: Embassy Lightning Node
+  description: Use this setting to grant Squeaknode access to your Embassy's LND or c-lightning node.
+  default: lnd
+  variants:
+    none: {}
+    lnd: {}
+    c-lightning: {}

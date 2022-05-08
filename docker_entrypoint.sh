@@ -9,13 +9,23 @@ _term() {
 bitcoind_type=$(yq e '.bitcoind.type' /root/start9/config.yaml)
 bitcoind_user=$(yq e '.bitcoind.user' /root/start9/config.yaml)
 bitcoind_pass=$(yq e '.bitcoind.password' /root/start9/config.yaml)
-# configure mempool to use just a bitcoind backend
+# configure squeaknode to use just a bitcoind backend
 if [ "$bitcoind_type" = "internal-proxy" ]; then
 	bitcoind_host="btc-rpc-proxy.embassy"
 	echo "Running on Bitcoin Proxy..."
 else
 	bitcoind_host="bitcoind.embassy"
 	echo "Running on Bitcoin Core..."
+fi
+
+lightning_type=$(yq e '.lightning.type' /root/start9/config.yaml)
+# configure squeaknode to use just a lightning backend
+if [ "$lightning_type" = "lnd" ]; then
+	lightning_backend="lnd"
+	echo "Running on LND..."
+else
+	lightning_backend="clightning"
+	echo "Running on c-lightning..."
 fi
 
 
@@ -32,10 +42,13 @@ export SQUEAKNODE_BITCOIN_RPC_HOST=$bitcoind_host
 export SQUEAKNODE_BITCOIN_RPC_PORT=8332
 export SQUEAKNODE_BITCOIN_RPC_USER=$bitcoind_user
 export SQUEAKNODE_BITCOIN_RPC_PASS=$bitcoind_pass
-export SQUEAKNODE_LND_HOST=$LND_ADDRESS
-export SQUEAKNODE_LND_RPC_PORT=10009
-export SQUEAKNODE_LND_TLS_CERT_PATH="/mnt/lnd/tls.cert"
-export SQUEAKNODE_LND_MACAROON_PATH="/mnt/lnd/data/chain/bitcoin/mainnet/admin.macaroon"
+export SQUEAKNODE_LIGHTNING_BACKEND=$lightning_type
+export SQUEAKNODE_LIGHTNING_BACKEND=$lightning_type
+export SQUEAKNODE_LIGHTNING_LND_RPC_HOST=$LND_ADDRESS
+export SQUEAKNODE_LIGHTNING_LND_RPC_PORT=10009
+export SQUEAKNODE_LIGHTNING_LND_TLS_CERT_PATH="/mnt/lnd/tls.cert"
+export SQUEAKNODE_LIGHTNING_LND_MACAROON_PATH="/mnt/lnd/data/chain/bitcoin/mainnet/admin.macaroon"
+export SQUEAKNODE_LIGHTNING_CLIGHTNING_RPC_FILE="/mnt/c-lightning/lightning-rpc"
 export SQUEAKNODE_TOR_PROXY_IP=$HOST_IP
 export SQUEAKNODE_TOR_PROXY_PORT=9050
 export SQUEAKNODE_WEBADMIN_ENABLED="true"
