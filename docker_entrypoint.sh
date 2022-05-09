@@ -23,9 +23,12 @@ lightning_type=$(yq e '.lightning.type' /root/start9/config.yaml)
 if [ "$lightning_type" = "lnd" ]; then
 	lightning_backend="lnd"
 	echo "Running on LND..."
-else
+elif [ "$lightning_type" = "c-lightning" ]; then
 	lightning_backend="clightning"
 	echo "Running on c-lightning..."
+else
+	echo "Lightning backend type must be selected."
+	exit
 fi
 
 
