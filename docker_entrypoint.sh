@@ -28,7 +28,7 @@ elif [ "$lightning_type" = "c-lightning" ]; then
 	echo "Running on c-lightning..."
 else
 	echo "Lightning backend type must be selected."
-	exit
+	exit 1
 fi
 
 
