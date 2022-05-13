@@ -28,4 +28,4 @@
   suggestions:
     - PUSH:
         to: 'users.[first(item => ''item.name = "squeaknode")].allowed-calls'
-        value: "getblock"
+        value: "getblockheader"
