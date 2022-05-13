@@ -11,6 +11,12 @@
         to-entropy:
           charset: "a-z,A-Z,0-9"
           len: 22
+- rule: '!(users.[first(item => ''item.name = "squeaknode")].fetch-blocks?)'
+  description: 'RPC user "squeaknode" must have "Fetch Blocks" disabled'
+  suggestions:
+    - SET:
+        var: 'users.[first(item => ''item.name = "squeaknode")].fetch-blocks'
+        to-value: false
 - rule: '''users.[first(item => ''item.name = "squeaknode")].allowed-calls.* = "getblockcount"'
   description: 'RPC user "squeaknode" must have "getblockcount" enabled'
   suggestions:
@@ -28,4 +34,4 @@
   suggestions:
     - PUSH:
         to: 'users.[first(item => ''item.name = "squeaknode")].allowed-calls'
-        value: "getblock"
+        value: "getblockheader"
