@@ -63,6 +63,7 @@ config:
       - squeaknode
       - /root
       - /mnt/assets/config_rules.yaml
+      - /mnt/assets/dependencies.yaml
     mounts:
       main: /root
       compat: /mnt/assets

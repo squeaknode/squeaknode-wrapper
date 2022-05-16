@@ -6,6 +6,7 @@
         value:
           name: squeaknode
           allowed-calls: []
+          fetch-blocks: false
     - SET:
         var: 'users.[first(item => ''item.name = "squeaknode")].password'
         to-entropy:
